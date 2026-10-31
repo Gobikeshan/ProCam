@@ -11,14 +11,15 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
-      - uses: android-actions/setup-android@v3
+      - name: Accept Android licenses
+        run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses || true
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: 9.3.1
       - name: Unzip project
         run: |
           mkdir work
-          unzip -q procam-oct-31-2026-12-55-02-pm.zip -d work
+          unzip -q *.zip -d work
       - name: Create debug keystore
         working-directory: work
         run: |
